@@ -1,4 +1,4 @@
-# Backpacks 1.1.0
+# Shulker Backpacks
 
 How to use 101
 
