@@ -7,3 +7,5 @@ How to use 101
 3. you can now move items around except your shulker box (will added a checker other box shulkers later)
 
 Simple as that, have fun.
+
+Depedency: NBT-API (https://github.com/tr7zw/Item-NBT-API)
