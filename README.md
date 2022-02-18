@@ -1,4 +1,4 @@
-# Backpacks, a simple plugin for vanilla users
+# Backpacks 1.1.0
 
 How to use 101
 
