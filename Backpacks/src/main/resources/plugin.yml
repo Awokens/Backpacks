@@ -1,0 +1,6 @@
+name: Backpack
+version: '${project.version}'
+main: me.awokens.project.backpack.Backpack
+api-version: 1.17
+author: Awokens
+depend: [ NBTAPI ]
