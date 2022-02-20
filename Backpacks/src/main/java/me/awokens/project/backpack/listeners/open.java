@@ -13,7 +13,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class open implements Listener {
 
-
     /*
     opens the back preview when right click a shulker box
      */
