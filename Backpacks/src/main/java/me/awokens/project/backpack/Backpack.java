@@ -23,7 +23,7 @@ public final class Backpack extends JavaPlugin implements Listener {
         }
         this.getServer().getConsoleSender().sendMessage(ChatColor.GREEN +
                         "Loaded Backpack plugin " + this.getDescription().getVersion(),
-                ChatColor.YELLOW + "Author: " + this.getDescription().getAuthors()
+                ChatColor.GREEN + "Author: " + this.getDescription().getAuthors()
         );
     }
 
