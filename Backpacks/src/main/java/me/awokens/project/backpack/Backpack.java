@@ -1,6 +1,7 @@
 package me.awokens.project.backpack;
 
 import me.awokens.project.backpack.listeners.click;
+import me.awokens.project.backpack.listeners.close;
 import me.awokens.project.backpack.listeners.open;
 import org.bukkit.ChatColor;
 import org.bukkit.event.Listener;
@@ -15,6 +16,7 @@ public final class Backpack extends JavaPlugin implements Listener {
         try {
             this.getServer().getPluginManager().registerEvents(new open(), this);
             this.getServer().getPluginManager().registerEvents(new click(), this);
+            this.getServer().getPluginManager().registerEvents(new close(), this);
         } catch (NullPointerException e) {
             e.printStackTrace();
             this.getPluginLoader().disablePlugin(this);
