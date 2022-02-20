@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class close implements Listener {
 
-
     /*
     when player's inventory closes, it checks if the item held was a Shulker box,
     and see if player's inventory name was Backpack of <player>, then it saves
@@ -25,7 +24,11 @@ public class close implements Listener {
     public void closeBackpack(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
         ItemStack item = player.getInventory().getItemInMainHand();
-        if (!(item.getType() == Material.SHULKER_BOX)) return;
+
+        if (item.getType() != Material.SHULKER_BOX) {
+            item = player.getInventory().getItem(40);
+            if (item != null && item.getType() != Material.SHULKER_BOX) return;
+        }
 
         @NotNull Component title = event.getView().title();
         if (!title.toString().contains("Backpack of " + player.getName())) return;
@@ -35,7 +38,6 @@ public class close implements Listener {
         player.getInventory().getItemInMainHand().setItemMeta(data.getItem().getItemMeta());
 
     }
-
     /*
     In case I ever use it other plugins, I got one here.
      */
@@ -44,8 +46,8 @@ public class close implements Listener {
         NBTContainer nbt;
         ArrayList<String> items = new ArrayList<>();
         for (int i = 0; i < 27; i++) {
-            item = inv.getItem(i);
             try {
+                item = inv.getItem(i);
                 nbt = NBTItem.convertItemtoNBT(item);
                 nbt.setInteger("Slot", i);
                 items.add(nbt.toString());
