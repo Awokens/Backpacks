@@ -31,17 +31,18 @@ public class open implements Listener {
             player.openInventory(inv);
             return;
         }
+
         try {
+            NBTCompound items = data.getCompound("BlockEntityTag");
+            for (NBTListCompound compound : items.getCompoundList("Items")) {
+                inv.setItem(compound.getInteger("Slot"), NBTItem.convertNBTtoItem(compound));
+            }
             player.openInventory(inv);
             Location location = player.getLocation();
             location.getWorld().playSound(location, Sound.BLOCK_SHULKER_BOX_OPEN, 1, 1);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            player.sendMessage(ChatColor.RED + "Failed to open a preview of s hulker box");
-        }
-        NBTCompound items = data.getCompound("BlockEntityTag");
-        for (NBTListCompound compound : items.getCompoundList("Items")) {
-            inv.setItem(compound.getInteger("Slot"), NBTItem.convertNBTtoItem(compound));
+            player.sendMessage(ChatColor.RED + "Failed to open a preview of shulker box");
         }
     }
 
