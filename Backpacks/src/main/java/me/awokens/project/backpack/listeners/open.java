@@ -3,7 +3,10 @@ package me.awokens.project.backpack.listeners;
 import de.tr7zw.nbtapi.NBTCompound;
 import de.tr7zw.nbtapi.NBTItem;
 import de.tr7zw.nbtapi.NBTListCompound;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +25,7 @@ public class open implements Listener {
         Player player = event.getPlayer();
         if (!player.isSneaking()) return;
         ItemStack item = event.getItem();
+
         if (item == null || !(item.getType() == Material.SHULKER_BOX)) return;
 
         NBTItem data = new NBTItem(item);
@@ -42,7 +46,6 @@ public class open implements Listener {
             location.getWorld().playSound(location, Sound.BLOCK_SHULKER_BOX_OPEN, 1, 1);
         } catch (NullPointerException e) {
             e.printStackTrace();
-            player.sendMessage(ChatColor.RED + "Failed to open a preview of shulker box");
         }
     }
 
