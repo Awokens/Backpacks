@@ -15,10 +15,12 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class close implements Listener {
+
     /*
     when player's inventory closes, it checks if the item held was a Shulker box,
     and see if player's inventory name was Backpack of <player>, then it saves
      */
+
     @EventHandler
     public void closeBackpack(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
