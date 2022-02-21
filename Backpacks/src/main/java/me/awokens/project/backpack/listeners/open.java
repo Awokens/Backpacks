@@ -10,6 +10,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -19,8 +20,16 @@ public class open implements Listener {
     /*
     opens the back preview when right click a shulker box
      */
+
+    /*
+    make interact event left click only
+    and then cancel other events like breaking insta blocks
+    goodnight me.
+     */
+
+
     @EventHandler
-    public void openBackPack(PlayerInteractEvent event) {
+    public void Interact(PlayerInteractEvent event) {
 
         Player player = event.getPlayer();
         if (!player.isSneaking()) return;
@@ -35,7 +44,6 @@ public class open implements Listener {
             player.openInventory(inv);
             return;
         }
-
         try {
             NBTCompound items = data.getCompound("BlockEntityTag");
             for (NBTListCompound compound : items.getCompoundList("Items")) {

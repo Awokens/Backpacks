@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryEvent;
 
 public class click implements Listener {
 
@@ -22,17 +23,11 @@ public class click implements Listener {
         /*
         Extended security checks & allow some flexibility like dragging items, pickup all, except hotbar swapping (keystrokes) for now.
         */
-        if (event.getCurrentItem() != null && event.getCurrentItem().getType() == Material.SHULKER_BOX) {
-            event.setCancelled(true);
-        }
-        if (event.getAction() == InventoryAction.HOTBAR_SWAP || event.getHotbarButton() != -1) {
-            event.setCancelled(true);
-        }
-        if (event.getView().getTopInventory().contains(Material.SHULKER_BOX)) {
-            event.setCancelled(true);
-        }
-        if (event.isCancelled()) {
-            player.sendMessage(ChatColor.RED + "Illegal backpack click movement!");
-        }
+        if (player.getInventory().getItemInMainHand().getType() != Material.SHULKER_BOX) event.setCancelled(true);
+        if (event.getCurrentItem() != null && event.getCurrentItem().getType() == Material.SHULKER_BOX) event.setCancelled(true);
+        if (event.getAction() == InventoryAction.HOTBAR_SWAP || event.getHotbarButton() != -1) event.setCancelled(true);
+        if (event.getView().getTopInventory().contains(Material.SHULKER_BOX)) event.setCancelled(true);
+
+        if (event.isCancelled()) { player.sendMessage(ChatColor.RED + "Illegal backpack click movement!");}
     }
 }
