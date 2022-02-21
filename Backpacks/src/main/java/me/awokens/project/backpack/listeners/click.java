@@ -7,11 +7,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryEvent;
 
 public class click implements Listener {
-
-
     /*
     checks if player has shulker preview open, then cancels the event if they attempt
     to move the shulker box, basic security for preventing duplication.
