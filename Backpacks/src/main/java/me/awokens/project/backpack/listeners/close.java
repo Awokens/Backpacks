@@ -23,15 +23,12 @@ public class close implements Listener {
     @EventHandler
     public void closeBackpack(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
-        ItemStack item = player.getInventory().getItemInMainHand();
-
-        if (item.getType() != Material.SHULKER_BOX) {
-            item = player.getInventory().getItem(40);
-            if (item != null && item.getType() != Material.SHULKER_BOX) return;
-        }
 
         @NotNull Component title = event.getView().title();
         if (!title.toString().contains("Backpack of " + player.getName())) return;
+        ItemStack item = player.getInventory().getItemInMainHand();
+
+        if (item.getType() != Material.SHULKER_BOX) return;
         NBTItem data = new NBTItem(item);
 
         data.mergeCompound(serializeShulker(event.getView().getTopInventory()));
