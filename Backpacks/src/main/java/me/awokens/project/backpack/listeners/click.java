@@ -1,6 +1,5 @@
 package me.awokens.project.backpack.listeners;
 
-import net.kyori.adventure.text.Component;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -10,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 public class click implements Listener {
     /*
@@ -24,8 +22,8 @@ public class click implements Listener {
     public void clickBackPack(InventoryClickEvent event) {
         if (!(event.getWhoClicked() instanceof Player player)) return;
 
-        net.kyori.adventure.text.@NotNull Component title = event.getView().title();
-        if (!title.contains(Component.text("Backpack of " + player.getName()))) return;
+        String title = event.getView().title().toString();
+        if (!title.contains("Backpack of " + player.getName())) return;
 
         Inventory inv = player.getInventory();
         ItemStack current = event.getCurrentItem();
