@@ -37,10 +37,6 @@ public class close implements Listener {
         bmeta.setBlockState(shulker);
         item.setItemMeta(bmeta);
 
-        //debug stuff
-        //player.sendMessage("shulker: " + Arrays.toString(shulker.getInventory().getContents()));
-        // player.sendMessage("shulker box: " + ((ShulkerBox) bmeta.getBlockState()).getInventory());
-
 
     }
 }

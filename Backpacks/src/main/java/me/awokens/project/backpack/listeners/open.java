@@ -15,16 +15,7 @@ public class open implements Listener {
 
     /*
     opens the back preview when right click a shulker box
-     */
-
-    /*
-    make interact event left click only
-    and then cancel other events like breaking insta blocks
-    goodnight me.
-     */
-
-    /*
-    massive improvement, no longer need NBT API
+    - massive improvement, no longer need NBT API
      */
 
     @EventHandler
