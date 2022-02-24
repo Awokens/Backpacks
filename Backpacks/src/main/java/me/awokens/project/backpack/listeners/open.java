@@ -1,32 +1,22 @@
 package me.awokens.project.backpack.listeners;
 
-import de.tr7zw.nbtapi.NBTCompound;
-import de.tr7zw.nbtapi.NBTItem;
-import de.tr7zw.nbtapi.NBTListCompound;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
 
 public class open implements Listener {
 
     /*
     opens the back preview when right click a shulker box
+    - massive improvement, no longer need NBT API
      */
-
-    /*
-    make interact event left click only
-    and then cancel other events like breaking insta blocks
-    goodnight me.
-     */
-
 
     @EventHandler
     public void Interact(PlayerInteractEvent event) {
@@ -35,23 +25,19 @@ public class open implements Listener {
         if (!player.isSneaking()) return;
         ItemStack item = event.getItem();
 
-        if (item == null || !(item.getType() == Material.SHULKER_BOX)) return;
+        if (item == null) return;
 
-        NBTItem data = new NBTItem(item);
         Inventory inv = Bukkit.createInventory(null, 27, "Backpack of " + player.getName()); // yes I know it's deprecated, calm down nerds.
 
-        if (!data.hasKey("BlockEntityTag")) {
-            player.openInventory(inv);
-            return;
-        }
         try {
-            NBTCompound items = data.getCompound("BlockEntityTag");
-            for (NBTListCompound compound : items.getCompoundList("Items")) {
-                inv.setItem(compound.getInteger("Slot"), NBTItem.convertNBTtoItem(compound));
-            }
+            BlockStateMeta bmeta = (BlockStateMeta) item.getItemMeta();
+            if (!(bmeta.getBlockState() instanceof ShulkerBox shulker)) return;
+
+            ItemStack[] content = shulker.getInventory().getContents();
+            if (content.length > 0) inv.setContents(content);
+
             player.openInventory(inv);
-            Location location = player.getLocation();
-            location.getWorld().playSound(location, Sound.BLOCK_SHULKER_BOX_OPEN, 1, 1);
+            player.playSound(player, Sound.BLOCK_SHULKER_BOX_OPEN, 1, 1);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

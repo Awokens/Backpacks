@@ -10,9 +10,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Backpack extends JavaPlugin implements Listener {
 
+
+    private static Backpack instance;
+
+    public static Backpack getInstance() {
+        return instance;
+    }
+
     @Override
     public void onEnable() {
         // Plugin startup logic
+        instance = this;
         try {
             this.getServer().getPluginManager().registerEvents(new open(), this);
             this.getServer().getPluginManager().registerEvents(new click(), this);
@@ -21,8 +29,8 @@ public final class Backpack extends JavaPlugin implements Listener {
             e.printStackTrace();
             this.getPluginLoader().disablePlugin(this);
         }
-        this.getServer().getConsoleSender().sendMessage(ChatColor.GREEN +
-                        "Loaded Backpack plugin " + this.getDescription().getVersion(),
+        this.getServer().getConsoleSender().sendMessage(
+                ChatColor.GREEN + "Loaded Backpack plugin " + this.getDescription().getVersion(),
                 ChatColor.GREEN + "Author: " + this.getDescription().getAuthors()
         );
     }
@@ -31,6 +39,7 @@ public final class Backpack extends JavaPlugin implements Listener {
     public void onDisable() {
         // Plugin shutdown logic
     }
+
 
 }
 
