@@ -15,7 +15,7 @@ public class click implements Listener {
     checks if player has shulker preview open, then cancels the event if they attempt
     to move the shulker box, basic security for preventing duplication.
 
-    - Improved security checks and extended flexibility such as hotbar key swapping.
+    Improved security checks and extended flexibility such as hotbar key swapping.
     */
 
     @EventHandler
