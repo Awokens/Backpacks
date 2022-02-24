@@ -29,9 +29,13 @@ public class click implements Listener {
         ItemStack current = event.getCurrentItem();
 
         if (current != null && current.getType() == Material.SHULKER_BOX) event.setCancelled(true);
-        ItemStack hotbar = inv.getItem(event.getHotbarButton());
-
-        if (hotbar != null && hotbar.getType() == Material.SHULKER_BOX) event.setCancelled(true);
+        ItemStack HotBar;
+        try {
+            HotBar = inv.getItem(event.getHotbarButton());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            HotBar = null;
+        }
+        if (HotBar != null && HotBar.getType() == Material.SHULKER_BOX) event.setCancelled(true);
         if (player.getInventory().getItemInMainHand().getType() != Material.SHULKER_BOX) event.setCancelled(true);
         if (event.getView().getTopInventory().contains(Material.SHULKER_BOX)) event.setCancelled(true);
         if (!event.isCancelled()) return;
