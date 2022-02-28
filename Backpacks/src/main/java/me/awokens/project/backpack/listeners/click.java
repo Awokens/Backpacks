@@ -1,14 +1,15 @@
 package me.awokens.project.backpack.listeners;
 
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
 
 public class click implements Listener {
     /*
@@ -26,20 +27,32 @@ public class click implements Listener {
         if (!title.contains("Backpack of " + player.getName())) return;
 
         Inventory inv = player.getInventory();
-        ItemStack current = event.getCurrentItem();
-
-        if (current != null && current.getType() == Material.SHULKER_BOX) event.setCancelled(true);
-        ItemStack HotBar;
-        try {
-            HotBar = inv.getItem(event.getHotbarButton());
-        } catch (ArrayIndexOutOfBoundsException e) {
-            HotBar = null;
+        ItemStack item = event.getCurrentItem();
+        /*
+        added event.isCancelled boolean check so the code doesn't waste time to cancelling the event when it already was.
+         */
+        BlockStateMeta bmeta = (BlockStateMeta) item.getItemMeta();
+        if (!(bmeta.getBlockState() instanceof ShulkerBox shulker)) {
+            event.setCancelled(true);
         }
-        if (HotBar != null && HotBar.getType() == Material.SHULKER_BOX) event.setCancelled(true);
-        if (player.getInventory().getItemInMainHand().getType() != Material.SHULKER_BOX) event.setCancelled(true);
-        if (event.getView().getTopInventory().contains(Material.SHULKER_BOX)) event.setCancelled(true);
-        if (!event.isCancelled()) return;
+        if (!event.isCancelled()) {
+            ItemStack HotBar;
+            try {
+                HotBar = inv.getItem(event.getHotbarButton());
 
+
+                bmeta = (BlockStateMeta) HotBar.getItemMeta();
+
+                if ((bmeta.getBlockState() instanceof ShulkerBox)) event.setCancelled(true);
+                bmeta = (BlockStateMeta) player.getInventory().getItemInMainHand().getItemMeta();
+                if ((bmeta instanceof ShulkerBox)) event.setCancelled(true);
+
+
+            } catch (ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
+            }
+        }
+        if (!event.isCancelled()) return;
         player.sendMessage(ChatColor.RED + "Illegal backpack click movement!");
         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_DIDGERIDOO, 1, 1);
     }
